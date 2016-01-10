@@ -15,33 +15,40 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends Activity {
-    static void main(String[] args){}
-
-    public static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-
-    public void getBluetoothAdapter(){
-        if(mBluetoothAdapter == null){
-            //サポートされていないときの処理
-        }else{
-            //サポートされている
-        }
-         //Bluetooth無効時に有効にする処理
-         if(!mBluetoothAdapter.isEnabled()){
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
-//        }
-    }
-    }
-    //    private BluetoothManager mBluetoothManager;
-//    private BluetoothAdapter mBluetoothAdapter;
-//    private BluetoothAdapter.LeScanCallback mLeScanCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        turnOn();
+        getManager();
         setContentView(R.layout.activity_main);
-        getBluetoothAdapter();
+    }
+
+    private int REQUEST_ENABLE_BT = 1234;
+
+    public void turnOn(){
+        // Bluetoothをオンにする許可
+        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if(btAdapter == null){
+            finish();
+        }
+
+        if(!btAdapter.isEnabled()){
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intent,REQUEST_ENABLE_BT);
+        }
+    }
+    public void getManager(){
+        BluetoothManager mBluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
+        BluetoothAdapter mBluetoothAdapter = mBluetoothManager.getAdapter();
+
+        BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback(){
+            @Override
+        public void onLeScan(final BluetoothDevice device,final int rssi,final byte[] scanRecord){
+
+            }
+        };
     }
 //
 //        //BLE
