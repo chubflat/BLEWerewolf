@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         turnOn();
-        getManager();
         setContentView(R.layout.activity_main);
     }
 
@@ -39,17 +38,22 @@ public class MainActivity extends Activity {
             startActivityForResult(intent,REQUEST_ENABLE_BT);
         }
     }
-    public void getManager(){
+
+    public void scanPeripheral(){
         BluetoothManager mBluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter mBluetoothAdapter = mBluetoothManager.getAdapter();
 
-        BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback(){
-            @Override
-        public void onLeScan(final BluetoothDevice device,final int rssi,final byte[] scanRecord){
-
-            }
-        };
     }
+//        BluetoothManager mBluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
+//        BluetoothAdapter mBluetoothAdapter = mBluetoothManager.getAdapter();
+//
+//        BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback(){
+//            @Override
+//        public void onLeScan(final BluetoothDevice device,final int rssi,final byte[] scanRecord){
+//
+//            }
+//        };
+//    }
 //
 //        //BLE
 //        mBluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
