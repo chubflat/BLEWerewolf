@@ -26,11 +26,12 @@ public class MainActivity extends Activity {
         }else{
             //サポートされている
         }
-        // Bluetooth無効時に有効にする処理
-        // if(!mBluetoothAdapter.isEnabled()){
-//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//        startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
+         //Bluetooth無効時に有効にする処理
+         if(!mBluetoothAdapter.isEnabled()){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
 //        }
+    }
     }
     //    private BluetoothManager mBluetoothManager;
 //    private BluetoothAdapter mBluetoothAdapter;
@@ -40,7 +41,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getBluetoothAdapter();
     }
 //
