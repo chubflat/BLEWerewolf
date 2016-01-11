@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 
         //TODO FrameLayoutに追加
         final CustomView customView = new CustomView(this);
-        setContentView(mFrameLayout);
+        mFrameLayout.addView(customView);
 
         //TODO List追加
 
@@ -117,6 +117,8 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+
 
 
 // bluetooth用
