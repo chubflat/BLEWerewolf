@@ -11,7 +11,6 @@ public class CustomView extends View {
 
     private Bitmap backgroundImg = null;
     private Bitmap roleImg = null;
-    private int timer;
     private Bitmap timerFrame = null;
 
 
