@@ -29,8 +29,6 @@ public class MainActivity extends Activity {
     public static ArrayList<Integer> victimArray;//夜間犠牲者Array
 
     public static int selectedPlayerId;//リストで選択されたプレイヤーのID
-    public static int mediumId;//昼に処刑されたプレイヤーのID
-    public static int bodyguardId;//狩人が守ったプレイヤーのID
 
     // TODO Adapter宣言
 
@@ -46,7 +44,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         initBackground();
         super.onCreate(savedInstanceState);
-        turnOn();
+//        turnOn();
 
         // FrameLayout作成
         FrameLayout mFrameLayout = new FrameLayout(this);
@@ -93,13 +91,13 @@ public class MainActivity extends Activity {
                     break;
                 case "morning":
                     //TODO 終了判定する
-                    gamePhase = "afternoon_opening";
+                    gamePhase = "afternoon_meeting";
                     break;
                 case "afternoon_meeting":
-                    gamePhase = "afternoon_voting";
+                    gamePhase = "evening_voting";
                     // TODO 投票用リスト表示
                     break;
-                case "afternoon_voting":
+                case "evening_voting":
                     gamePhase = "excution";
                     break;
                 case "excution":
@@ -122,21 +120,21 @@ public class MainActivity extends Activity {
 
 
 // bluetooth用
-    private final static int REQUEST_ENABLE_BT = 123456;
-
-    public void turnOn(){
-        // Bluetoothをオンにする許可
-        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if(btAdapter == null){
-            finish();
-        }
-
-        if(!btAdapter.isEnabled()){
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(intent,REQUEST_ENABLE_BT);
-        }
-    }
+//    private final static int REQUEST_ENABLE_BT = 123456;
+//
+//    public void turnOn(){
+//        // Bluetoothをオンにする許可
+//        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+//
+//        if(btAdapter == null){
+//            finish();
+//        }
+//
+//        if(!btAdapter.isEnabled()){
+//            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivityForResult(intent,REQUEST_ENABLE_BT);
+//        }
+//    }
 
 
 //    // 対象のサーブUUID
