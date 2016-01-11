@@ -38,6 +38,8 @@ public class CustomView extends View {
     public static Rect confirmButtonRect;
     public static Rect actionButtonRect;
     public static Rect topTextRect;
+    public static Rect roleCardRect;
+    public static Rect timerRect;
 
     // TODO GameSceneと共通の変数
     public static int day = 0;
@@ -84,6 +86,8 @@ public class CustomView extends View {
         confirmButtonRect = new Rect(dp_width * 10 / 100 ,dp_height * 80 / 100,dp_width * 90 / 100 ,dp_height * 90 / 100);
         actionButtonRect = new Rect (dp_width * 80 / 100 ,dp_height * 5 / 100,dp_width * 95 / 100 ,dp_height * 15 / 100);
         topTextRect = new Rect(dp_width * 20 / 100 ,dp_height * 5 / 100,dp_width * 80 / 100 ,dp_height * 15 / 100);
+        roleCardRect = new Rect(dp_width * 5 / 100, dp_height * 5/100 ,dp_width * 15 / 100 ,dp_height * 20 / 100);
+        timerRect = new Rect(dp_width * 20 / 100, dp_height * 5/100 ,dp_width * 60 / 100 ,dp_height * 20 / 100);
 
         //TODO GameSceneとの共有変数の初期化
         scene = MainActivity.scene;
@@ -177,10 +181,45 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,confirmButtonRect,paint);
                     canvas.drawText("初日夜へ", dp_width * 25 / 100, dp_height * 90 / 100, paint);
 
+                    break;
+
+                case "night_chat":
+                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
+                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+                    canvas.drawBitmap(buttonImg,null,actionButtonRect,paint);
+
+                    String action = "占う";
+                    // TODO 役職ごとに文字を変えるif文
+                    canvas.drawText(action,dp_width * 75 / 100,dp_height * 10 / 100,paint);
+
+                    // TODO Chat実装
+                    break;
+
+                case "morning":
+                    // background
+                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.morning);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
                     break;
-                case "night_chat":
+                case "afternoon_opening":
+                    // background
+                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+
                     break;
+                case "afternoon_meeting":
+                    break;
+                case "afternoon_voting":
+                    // background
+                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.evening);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+
+                    break;
+                case "excution":
+                    break;
+                case "gameover":
+                    break;
+
 
                 default:
                     break;
