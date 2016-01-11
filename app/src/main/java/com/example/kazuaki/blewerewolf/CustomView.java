@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.Display;
@@ -36,6 +37,7 @@ public class CustomView extends View {
     //gameScene用
     public static Rect confirmButtonRect;
     public static Rect actionButtonRect;
+    public static Rect topTextRect;
 
     // TODO GameSceneと共通の変数
     public static int day = 0;
@@ -71,6 +73,7 @@ public class CustomView extends View {
         frameImg = BitmapFactory.decodeResource(getResources(),R.drawable.frame);
         timerFrameImg = BitmapFactory.decodeResource(getResources(),R.drawable.time_frame);
         buttonImg = BitmapFactory.decodeResource(getResources(),R.drawable.button);
+        roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.card0);
 
         //SettingScene用Rect初期化
         backgroundRect = new Rect(0,0,dp_width,dp_height);
@@ -79,7 +82,8 @@ public class CustomView extends View {
 
         //GameScene用Rect初期化
         confirmButtonRect = new Rect(dp_width * 10 / 100 ,dp_height * 80 / 100,dp_width * 90 / 100 ,dp_height * 90 / 100);
-        actionButtonRect = new Rect (dp_width * 80 / 100 ,dp_height * 10 / 100,dp_width * 95 / 100 ,dp_height * 20 / 100);
+        actionButtonRect = new Rect (dp_width * 80 / 100 ,dp_height * 5 / 100,dp_width * 95 / 100 ,dp_height * 15 / 100);
+        topTextRect = new Rect(dp_width * 20 / 100 ,dp_height * 5 / 100,dp_width * 80 / 100 ,dp_height * 15 / 100);
 
         //TODO GameSceneとの共有変数の初期化
         scene = MainActivity.scene;
@@ -112,6 +116,13 @@ public class CustomView extends View {
                     break;
                 case "client_menu":
                     //TODO Client設定 部屋探索
+                    backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.night);
+                    paint.setColor(Color.WHITE);
+                    canvas.drawText("ルール設定待ち",dp_width * 30/100,dp_height * 50 / 100,paint);
+
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ",dp_width * 25/100,dp_height * 90/100,paint);
+
                     break;
                 default:
                     break;
@@ -120,9 +131,58 @@ public class CustomView extends View {
 
             switch (gamePhase){
                 case "rule_confirm":
+                    // background
+                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                    //topText
+                    canvas.drawBitmap(timerFrameImg,null,topTextRect,paint);
+                    canvas.drawText("ルール",dp_width * 30/100,dp_height * 10/100,paint);
+
+                    // TODO List表示
+                    // 2行リスト MainActivityに記述
+
+                    //confirmButton
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("確認",dp_width * 25/100,dp_height * 90/100,paint);
                     break;
 
                 case "night_roleRotate":
+                    // background
+                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.night);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+
+                    // rotateImg 表示
+                    Rect rotateCardRect = new Rect(dp_width * 15 /100,dp_height * 30 / 100 ,dp_width * 85 / 100 ,dp_height * 70 /100);
+
+                    //TODO cardRotate
+                    //TODO roleImgを取ってくる:デフォルトで村人
+
+                    roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.card0);
+                    canvas.drawBitmap(roleImg,null,rotateCardRect,paint);
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("詳細確認", dp_width * 25 / 100, dp_height * 90 / 100, paint);
+
+                    break;
+                case "night_roleCheck":
+                    //Rect宣言
+                    Rect topFrameRect = new Rect(dp_width * 5 /100,dp_height * 5 / 100 ,dp_width * 95 / 100 ,dp_height * 50 /100);
+                    Rect belowFrameRect = new Rect(dp_width * 20 /100,dp_height * 60 / 100 ,dp_width * 80 / 100 ,dp_height * 75 /100);
+                    Rect roleCheckCardRect = new Rect(dp_width * 45 /100,dp_height * 10 / 100 ,dp_width * 55 / 100 ,dp_height * 20 /100);
+
+                    // canvasDraw
+                    canvas.drawBitmap(frameImg,null,topFrameRect,paint);
+                    canvas.drawBitmap(frameImg,null,belowFrameRect,paint);
+                    canvas.drawBitmap(roleImg,null,roleCheckCardRect,paint);
+                    canvas.drawBitmap(buttonImg,null,confirmButtonRect,paint);
+                    canvas.drawText("初日夜へ", dp_width * 25 / 100, dp_height * 90 / 100, paint);
+
+
+                    break;
+                case "night_chat":
+                    break;
+
+                default:
                     break;
 
 
