@@ -21,6 +21,9 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 public class MainActivity extends Activity {
+    public void main(String[] args){
+
+    }
 
     // 各種List宣言
     public static List<Map<String,Object>> playerArray;//参加者Array
@@ -42,8 +45,10 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initBackground();
+        scene = "setting_scene";
+        settingPhase = "setting_menu";
         super.onCreate(savedInstanceState);
+        initBackground();
 //        turnOn();
 
         // FrameLayout作成
@@ -153,43 +158,6 @@ public class MainActivity extends Activity {
 //            });
 //        }
 //    };
-
-
-
-
-//    BluetoothManager mBluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
-//    BluetoothAdapter mBluetoothAdapter = mBluetoothManager.getAdapter();
-//
-//    BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback(){
-//        @Override
-//        public void onLeScan(final BluetoothDevice device,final int rssi,final byte[] scanRecord){
-//
-//        }
-//    };
-
-    //first program
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
 
 
