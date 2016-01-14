@@ -29,9 +29,12 @@ public class CustomView extends View {
     private Bitmap timerFrameImg = null;
     private Bitmap buttonImg = null;
 
-    //TODO 画面サイズ取得用
+    //TODO サイズ取得用
     public static int width;
     public static int height;
+
+    public static int bitmapWidth;
+    public static int bitmapHeight;
 
     //SettingScene用
     public static Rect backgroundRect;
@@ -82,23 +85,25 @@ public class CustomView extends View {
         paint.setColor(Color.BLACK);
 
         // Bitmap初期化
-        backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.afternoon);
-        frameImg = BitmapFactory.decodeResource(getResources(),R.drawable.frame);
-        timerFrameImg = BitmapFactory.decodeResource(getResources(),R.drawable.time_frame);
-        buttonImg = BitmapFactory.decodeResource(getResources(),R.drawable.button);
-        roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.card0);
+        bitmapWidth = width;
+        bitmapHeight = height;
+        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
+        frameImg = decodeSampledBitmapFromResource(getResources(),R.drawable.frame,bitmapWidth,bitmapHeight);
+        timerFrameImg = decodeSampledBitmapFromResource(getResources(),R.drawable.time_frame,bitmapWidth,bitmapHeight);
+        buttonImg = decodeSampledBitmapFromResource(getResources(),R.drawable.button,bitmapWidth,bitmapHeight);
+        roleImg = decodeSampledBitmapFromResource(getResources(),R.drawable.card0,bitmapWidth,bitmapHeight);
 
-//        //SettingScene用Rect初期化
-//        backgroundRect = new Rect(0,0,width,height);
-//        clientButtonRect = new Rect(width * 10 / 100 ,height * 50 / 100,width * 90 / 100 ,height * 60 / 100);
-//        userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
-//
-//        //GameScene用Rect初期化
-//        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
-//        actionButtonRect = new Rect (width * 75 / 100 ,height * 5 / 100,width * 95 / 100 ,height * 20 / 100);
-//        topTextRect = new Rect(width * 20 / 100 ,height * 5 / 100,width * 80 / 100 ,height * 15 / 100);
-//        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
-//        timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
+        //SettingScene用Rect初期化
+        backgroundRect = new Rect(0,0,bitmapWidth,bitmapHeight);
+        clientButtonRect = new Rect(width * 10 / 100 ,height * 50 / 100,width * 90 / 100 ,height * 60 / 100);
+        userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
+
+        //GameScene用Rect初期化
+        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
+        actionButtonRect = new Rect (width * 75 / 100 ,height * 5 / 100,width * 95 / 100 ,height * 20 / 100);
+        topTextRect = new Rect(width * 20 / 100 ,height * 5 / 100,width * 80 / 100 ,height * 15 / 100);
+        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
+        timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
 
         //TODO GameSceneとの共有変数の初期化
         scene = MainActivity.scene;
@@ -108,8 +113,10 @@ public class CustomView extends View {
         settingPhase = MainActivity.settingPhase;
         gamePhase = MainActivity.gamePhase;
 
+        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
+
 //        backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
-//        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
         // default List非表示
 
@@ -118,10 +125,11 @@ public class CustomView extends View {
             switch (settingPhase){
                 case "setting_menu":
                     // background
-                    backgroundRect = new Rect(0,0,width,height);
-                    clientButtonRect = new Rect(width * 10 / 100 ,height * 50 / 100,width * 90 / 100 ,height * 60 / 100);
-                    userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
-                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+////                    backgroundRect = new Rect(0,0,bitmapWidth,bitmapHeight);
+//                    clientButtonRect = new Rect(width * 10 / 100 ,height * 50 / 100,width * 90 / 100 ,height * 60 / 100);
+//                    userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
                     // Client Button
                     canvas.drawBitmap(buttonImg,null,clientButtonRect,paint);
@@ -136,9 +144,10 @@ public class CustomView extends View {
                     break;
                 case "client_menu":
                     //TODO Client設定 部屋探索
-                    backgroundRect = new Rect(0,0,width,height);
+//                    backgroundRect = new Rect(0,0,bitmapWidth,bitmapHeight);
                     confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
-                    backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.night);
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.night);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
                     paint.setColor(Color.WHITE);
                     canvas.drawText("ルール設定待ち",width * 30/100,height * 50 / 100,paint);
@@ -152,14 +161,16 @@ public class CustomView extends View {
             }
         }else if(scene.equals("game_scene")){
             // background
-            backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.night);
+//            backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.night);
+            backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
             canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
 
             switch (gamePhase){
                 case "rule_confirm":
                     // background
-                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
                     //topText
                     canvas.drawBitmap(timerFrameImg,null,topTextRect,paint);
@@ -181,7 +192,7 @@ public class CustomView extends View {
                     //TODO cardRotate
                     //TODO roleImgを取ってくる:デフォルトで村人
 
-                    roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.card0);
+//                    roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.card0);
                     canvas.drawBitmap(roleImg,null,rotateCardRect,paint);
                     // confirm button
                     canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
@@ -224,7 +235,8 @@ public class CustomView extends View {
 
                 case "morning":
                     // background
-                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.morning);
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.morning);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.morning,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
                     canvas.drawBitmap(roleImg,null,roleCardRect,paint);
@@ -242,10 +254,12 @@ public class CustomView extends View {
                     break;
                 case "afternoon_meeting":
                     // background
-                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.afternoon);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(), R.drawable.afternoon, width, height);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
-                    roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.back_card);
+//                    roleImg = BitmapFactory.decodeResource(getResources(),R.drawable.back_card);
+                    roleImg = decodeSampledBitmapFromResource(getResources(),R.drawable.back_card,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(roleImg,null,roleCardRect,paint);
                     canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
 
@@ -256,7 +270,8 @@ public class CustomView extends View {
                     break;
                 case "evening_voting":
                     // background
-                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.evening);
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.evening);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
                     // TODO List表示
@@ -268,8 +283,8 @@ public class CustomView extends View {
                     break;
                 case "excution":
                     // background
-                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.evening);
-
+//                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.evening);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(roleImg,null,roleCardRect,paint);
                     canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
 
@@ -337,4 +352,45 @@ public class CustomView extends View {
         return true;
 
     }
+
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+// First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+// Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+// Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+// Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
+    }
+
 }
