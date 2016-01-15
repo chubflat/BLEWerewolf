@@ -9,8 +9,15 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -60,7 +67,63 @@ public class MainActivity extends Activity {
         mFrameLayout.addView(customView);
 
         //TODO List追加
-
+        // 夜アクション用リストのタッチ動作
+//        //ListView add
+//        listView = new ListView(this);
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.dp_width,customView.dp_height*4/10);
+//        lp.gravity = Gravity.BOTTOM;
+//        lp.bottomMargin = 0;
+//        selectedPlayerId = -2;
+//
+//        listPlayerIdArray = new ArrayList<>();
+//        Log.d("array", "array=");
+//
+//        listInfoDicArray = new ArrayList<Map<String,String>>();
+//
+//
+//        adapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
+//
+//        listView.setAdapter(adapter);
+//        listView.setLayoutParams(lp);
+//        listView.setBackgroundColor(Color.WHITE);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                if(phase.equals("player_setting")){
+//                    selectedPlayerId = -2;
+//                }else{
+//                    selectedPlayerId = listPlayerIdArray.get(position);
+//                }
+//
+//                if(phase.equals("player_setting")){
+//
+//                }else{
+//                    if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf) {
+//                        if (isFirstNight) {//人狼：初日の夜はタッチできない
+//                            if(selectedPlayerId == -1){
+//                                goNextPhase();
+//                                customView.invalidate();
+//                            }
+//
+//                        } else {// 人狼：2日目以降タッチされたplayerIdを渡して再描画
+//                            wolfkill(selectedPlayerId, 0);
+//                            goNextPhase();
+//                            customView.invalidate();
+//                        }
+//                    } else if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Bodyguard) {
+//                        bodyguardId = selectedPlayerId;
+//                        goNextPhase();
+//                        customView.invalidate();
+//                    } else {
+//                        goNextPhase();
+//                        customView.invalidate();
+//                    }
+//                }
+//            }
+//
+//        });
+//        layout.addView(listView);
+//        * */
         //TODO Chat追加
     }
 

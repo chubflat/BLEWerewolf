@@ -115,7 +115,6 @@ public class CustomView extends View {
         gamePhase = MainActivity.gamePhase;
 
         backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
-
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
         // default List非表示
@@ -137,10 +136,19 @@ public class CustomView extends View {
 
                         break;
                     case "user_setting":
-                        // TODO User設定
+                        // TODO User設定画面描画
+                        /*
+                        * username
+                        * userId
+                        * back button*/
                         break;
                     case "client_menu":
                         //TODO Client設定 部屋探索
+                        /*
+                        * bluetoothで部屋のIDを受信
+                        * リストに表示
+                        * リストの中身を選択したら待機画面に*/
+
                         confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
 //                    backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.night);
                         backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
@@ -342,6 +350,7 @@ public class CustomView extends View {
         return true;
 
     }
+
 
 
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
