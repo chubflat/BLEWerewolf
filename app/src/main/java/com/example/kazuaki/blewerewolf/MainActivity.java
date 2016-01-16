@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -32,9 +33,13 @@ public class MainActivity extends Activity {
 
     }
 
+    public static ListView listView;
+    public static SimpleAdapter simpleAdapter;
+    public static Adapter adapter;
+
     // 各種List宣言
     public static List<Map<String,Object>> playerArray;//参加者Array
-    public static List<Map<String,String>> ListInfoDicArray;//リストに表示する情報のArray
+    public static List<Map<String,String>> listInfoDicArray;//リストに表示する情報のArray
     public static ArrayList<Integer> listPlayerIdArray;//listに入っているplayerId Array
     public static ArrayList<Integer> victimArray;//夜間犠牲者Array
 
@@ -68,24 +73,23 @@ public class MainActivity extends Activity {
 
         //TODO List追加
         // 夜アクション用リストのタッチ動作
-//        //ListView add
-//        listView = new ListView(this);
-//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.dp_width,customView.dp_height*4/10);
-//        lp.gravity = Gravity.BOTTOM;
-//        lp.bottomMargin = 0;
-//        selectedPlayerId = -2;
-//
-//        listPlayerIdArray = new ArrayList<>();
-//        Log.d("array", "array=");
-//
-//        listInfoDicArray = new ArrayList<Map<String,String>>();
-//
-//
-//        adapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
-//
-//        listView.setAdapter(adapter);
-//        listView.setLayoutParams(lp);
-//        listView.setBackgroundColor(Color.WHITE);
+        listView = new ListView(this);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
+        lp.gravity = Gravity.BOTTOM;
+        lp.bottomMargin = 0;
+        selectedPlayerId = -2;
+
+        listPlayerIdArray = new ArrayList<>();
+        Log.d("array","array=");
+
+        listInfoDicArray = new ArrayList<Map<String,String>>();
+
+
+        simpleAdapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
+
+        listView.setAdapter(simpleAdapter);
+        listView.setLayoutParams(lp);
+        listView.setBackgroundColor(Color.WHITE);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -122,10 +126,12 @@ public class MainActivity extends Activity {
 //            }
 //
 //        });
-//        layout.addView(listView);
-//        * */
+        mFrameLayout.addView(listView);
+
         //TODO Chat追加
     }
+
+
 
     public static void initBackground(){
         scene = "setting_scene";
@@ -183,6 +189,11 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+    public static void refresh(){
+
+    }
+
 
 
 
