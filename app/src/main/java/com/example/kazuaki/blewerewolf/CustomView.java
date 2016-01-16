@@ -127,12 +127,14 @@ public class CustomView extends View {
                         //Background
                         backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-                        // Client Button
-                        canvas.drawBitmap(buttonImg,null,clientButtonRect,paint);
-                        canvas.drawText("クライアント", width * 25 / 100, height * 55 / 100, paint);
-                        // UserSetting Button
-                        canvas.drawBitmap(buttonImg,null,userSettingButtonRect,paint);
-                        canvas.drawText("ユーザー設定",width * 25/100,height * 70/100,paint);
+
+
+//                        // Client Button
+//                        canvas.drawBitmap(buttonImg,null,clientButtonRect,paint);
+//                        canvas.drawText("クライアント", width * 25 / 100, height * 55 / 100, paint);
+//                        // UserSetting Button
+//                        canvas.drawBitmap(buttonImg,null,userSettingButtonRect,paint);
+//                        canvas.drawText("ユーザー設定",width * 25/100,height * 70/100,paint);
 
                         break;
                     case "user_setting":

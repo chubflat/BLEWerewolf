@@ -1,7 +1,7 @@
 package com.example.kazuaki.blewerewolf;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityGroup;
 import android.bluetooth.le.*;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGatt;
@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -78,7 +79,7 @@ public class MainActivity extends Activity {
         settingPhase = "setting_menu";
         super.onCreate(savedInstanceState);
         initBackground();
-        initControls();
+//        initControls();
 //        turnOn();
 
         // FrameLayout作成
@@ -89,36 +90,8 @@ public class MainActivity extends Activity {
         final CustomView customView = new CustomView(this);
         mFrameLayout.addView(customView);
 
-        // xml取得
-        LinearLayout activity_chat = (LinearLayout)findViewById(R.id.activity_chat);
-        LayoutParams chatLp = new LayoutParams(300,700);
-        activity_chat.setLayoutParams(chatLp);
-        mFrameLayout.addView(activity_chat);
+//        mFrameLayout.addView(R.layout.activity_chat,100,100);
 
-//        // list_item
-//        content = new LinearLayout(this);
-//        LayoutParams contentLp = new LayoutParams(300,700);
-//        contentLp.gravity = Gravity.BOTTOM;
-//        contentLp.bottomMargin = 200;
-//        content.setLayoutParams(contentLp);
-//        content.setBackgroundColor(Color.WHITE); //TODO
-//        mFrameLayout.addView(content);
-//
-//        txtInfo = new TextView(this);
-//        LayoutParams txtInfoLp = new LayoutParams(100,100);
-//        contentLp.gravity = Gravity.BOTTOM;
-//        contentLp.bottomMargin = 200;
-//        txtInfo.setLayoutParams(txtInfoLp);
-//        txtInfo.setBackgroundColor(Color.BLUE); //TODO
-//        mFrameLayout.addView(txtInfo);
-//
-//
-//        contentWithBackground = new LinearLayout(this);
-//        txtMessage = new TextView(this);
-//
-//        txtInfo = new TextView(this);
-//        contentWithBackground = new LinearLayout(this);
-//        txtMessage = new TextView(this);
 
 
         //TODO List追加
@@ -183,21 +156,21 @@ public class MainActivity extends Activity {
 
     }
     private void initControls() {
-        messagesContainer = new ListView(this);
-        messageET = new EditText(this);
-        sendBtn = new Button(this);
+//        messagesContainer = new ListView(this);
+//        messageET = new EditText(this);
+//        sendBtn = new Button(this);
+//
+//        TextView meLabel = new TextView(this);
+//        TextView companionLabel = new TextView(this);
+//        RelativeLayout container = new RelativeLayout(this);
 
-        TextView meLabel = new TextView(this);
-        TextView companionLabel = new TextView(this);
-        RelativeLayout container = new RelativeLayout(this);
+        messagesContainer = (ListView) findViewById(R.id.messagesContainer);
+        messageET = (EditText) findViewById(R.id.messageEdit);
+        sendBtn = (Button) findViewById(R.id.chatSendButton);
 
-//        messagesContainer = (ListView) findViewById(R.id.messagesContainer);
-//        messageET = (EditText) findViewById(R.id.messageEdit);
-//        sendBtn = (Button) findViewById(R.id.chatSendButton);
-
-//        TextView meLabel = (TextView) findViewById(R.id.meLbl);
-//        TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
-//        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+        TextView meLabel = (TextView) findViewById(R.id.meLbl);
+        TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
         companionLabel.setText("My Buddy");// Hard Coded
         loadDummyHistory();
