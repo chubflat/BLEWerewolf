@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +34,14 @@ public class ChatActivity extends Activity {
     }
 
     private void initControls() {
+//        messagesContainer = new ListView(this);
+//        messageET = new EditText(this);
+//        sendBtn = new Button(this);
+//
+//        TextView meLabel = new TextView(this);
+//        TextView companionLabel = new TextView(this);
+//        RelativeLayout container = new RelativeLayout(this);
+
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (Button) findViewById(R.id.chatSendButton);
@@ -39,6 +49,7 @@ public class ChatActivity extends Activity {
         TextView meLabel = (TextView) findViewById(R.id.meLbl);
         TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
+
         companionLabel.setText("My Buddy");// Hard Coded
         loadDummyHistory();
 
