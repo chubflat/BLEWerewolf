@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
     public static ListView listView;
     public static SimpleAdapter simpleAdapter;
     public static Adapter adapter;
+    public static CustomView customView = null;
 
     // 各種List宣言
     public static List<Map<String,Object>> playerArray;//参加者Array
@@ -67,16 +69,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         //dialog
-        if(onDialog){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("今からアプリを起動してもいいですか？")
-                    .setPositiveButton("起動", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-// ボタンをクリックしたときの動作
-                        }
-                    });
-            builder.show();
-        }
+//        if(onDialog){
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setMessage("今からアプリを起動してもいいですか？")
+//                    .setPositiveButton("起動", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//// ボタンをクリックしたときの動作
+//                        }
+//                    });
+//            builder.show();
+//        }
 
 
         initBackground();
@@ -87,7 +89,7 @@ public class MainActivity extends Activity {
         setContentView(mFrameLayout);
 
         //TODO FrameLayoutに追加
-        final CustomView customView = new CustomView(this);
+        customView = new CustomView(this);
         mFrameLayout.addView(customView);
 
         //TODO List追加
@@ -148,6 +150,27 @@ public class MainActivity extends Activity {
         mFrameLayout.addView(listView);
 
         //TODO Chat追加
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+
+        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("今からアプリを起動してもいいですか？")
+                    .setPositiveButton("起動", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+// ボタンをクリックしたときの動作
+                            onDialog = false;
+                            settingPhase = "client_menu";
+                            customView.invalidate();
+
+                        }
+                    });
+            builder.show();
+        }
+
+        return true;
     }
 
 

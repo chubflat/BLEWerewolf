@@ -325,7 +325,7 @@ public class CustomView extends View {
                         case "setting_menu":
                             if(clientButtonRect.contains((int)pointX,(int)pointY)){
                                 MainActivity.onDialog = true;
-                                MainActivity.settingPhase = "client_menu";
+//                                MainActivity.settingPhase = "client_menu";
                         }
                             break;
                         case "client_menu":
@@ -351,7 +351,7 @@ public class CustomView extends View {
                 return true;
         }
         invalidate();
-        return true;
+        return false;
 
     }
 
