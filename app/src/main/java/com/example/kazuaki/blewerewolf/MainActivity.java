@@ -2,11 +2,6 @@ package com.example.kazuaki.blewerewolf;
 
 import android.app.Activity;
 import android.app.ActivityGroup;
-import android.bluetooth.le.*;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,6 +86,11 @@ public class MainActivity extends Activity {
         final CustomView customView = new CustomView(this);
         mFrameLayout.addView(customView);
 
+        View view = getLayoutInflater().inflate(R.layout.activity_chat,null);
+        LayoutParams lp = new LayoutParams(customView.width * 90 /100,customView.height * 80 / 100);
+        lp.gravity = Gravity.TOP;
+        lp.topMargin = 200;
+        addContentView(view,lp);
 
 //        mFrameLayout.addView(R.layout.activity_chat,100,100);
 
@@ -99,7 +100,7 @@ public class MainActivity extends Activity {
         // 夜アクション用リストのタッチ動作
 //        //ListView add
 //        listView = new ListView(this);
-//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.dp_width,customView.dp_height*4/10);
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
 //        lp.gravity = Gravity.BOTTOM;
 //        lp.bottomMargin = 0;
 //        selectedPlayerId = -2;
