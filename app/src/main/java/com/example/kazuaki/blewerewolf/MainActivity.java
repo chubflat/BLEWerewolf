@@ -2,12 +2,14 @@ package com.example.kazuaki.blewerewolf;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.le.*;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -47,6 +49,9 @@ public class MainActivity extends Activity {
 
     // TODO Adapter宣言
 
+    // dialog関連
+    public static boolean onDialog = false;
+
     // フラグ管理用 変数宣言
     public static int day;
     public static String scene;
@@ -60,6 +65,20 @@ public class MainActivity extends Activity {
         scene = "setting_scene";
         settingPhase = "setting_menu";
         super.onCreate(savedInstanceState);
+
+        //dialog
+        if(onDialog){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("今からアプリを起動してもいいですか？")
+                    .setPositiveButton("起動", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+// ボタンをクリックしたときの動作
+                        }
+                    });
+            builder.show();
+        }
+
+
         initBackground();
 //        turnOn();
 
@@ -132,6 +151,13 @@ public class MainActivity extends Activity {
     }
 
 
+    public static void drawListView(boolean visible){
+        if(visible == true) {
+            listView.setVisibility(View.VISIBLE);
+        }else if(visible == false){
+            listView.setVisibility(View.INVISIBLE);
+        }
+    }
 
     public static void initBackground(){
         scene = "setting_scene";
@@ -192,6 +218,20 @@ public class MainActivity extends Activity {
 
     public static void refresh(){
 
+    }
+    public void setDialog(){
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("title")
+                .setMessage("message")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // OK button pressed
+                        MainActivity.settingPhase = "client_menu";
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
 

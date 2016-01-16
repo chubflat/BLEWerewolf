@@ -1,6 +1,8 @@
 package com.example.kazuaki.blewerewolf;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -118,6 +120,7 @@ public class CustomView extends View {
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
         // default List非表示
+        MainActivity.drawListView(false);
 
 
         switch (scene){
@@ -321,6 +324,7 @@ public class CustomView extends View {
                     switch (settingPhase){
                         case "setting_menu":
                             if(clientButtonRect.contains((int)pointX,(int)pointY)){
+                                MainActivity.onDialog = true;
                                 MainActivity.settingPhase = "client_menu";
                         }
                             break;
@@ -350,6 +354,8 @@ public class CustomView extends View {
         return true;
 
     }
+
+
 
 
 
