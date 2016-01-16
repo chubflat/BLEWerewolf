@@ -87,8 +87,8 @@ public class MainActivity extends Activity {
         setContentView(mFrameLayout);
 
         //TODO FrameLayoutに追加
-        final CustomView customView = new CustomView(this);
-        mFrameLayout.addView(customView);
+//        final CustomView customView = new CustomView(this);
+//        mFrameLayout.addView(customView);
 
 //        mFrameLayout.addView(R.layout.activity_chat,100,100);
 

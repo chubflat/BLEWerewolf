@@ -21,8 +21,8 @@ import android.view.WindowManager;
  */
 public class CustomView extends View {
 
-    //TODO Bitmap宣言
 
+    //TODO Bitmap宣言
     private Bitmap backgroundImg = null;
     private Bitmap roleImg = null;
     private Bitmap frameImg = null;
