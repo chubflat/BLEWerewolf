@@ -109,12 +109,7 @@ public class CustomView extends View {
         timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
 
         //TODO GameSceneとの共有変数の初期化
-        scene = MainActivity.scene;
-        day = MainActivity.day;
-        selectedPlayerId = MainActivity.selectedPlayerId;
-        isFirstNight = MainActivity.isFirstNight;
-        settingPhase = MainActivity.settingPhase;
-        gamePhase = MainActivity.gamePhase;
+        setSameVariable();
 
         backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
@@ -318,18 +313,21 @@ public class CustomView extends View {
         float pointX = event.getX();
         float pointY = event.getY();
 
+
+
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 if(scene.equals("setting_scene")){
                     switch (settingPhase){
                         case "setting_menu":
                             if(clientButtonRect.contains((int)pointX,(int)pointY)){
-                                MainActivity.onDialog = true;
+                                setDialog("Seer");
 //                                MainActivity.settingPhase = "client_menu";
                         }
                             break;
                         case "client_menu":
                             if(confirmButtonRect.contains((int)pointX,(int)pointY)){
+                                setDialog("Werewolf");
                                 MainActivity.scene = "game_scene";
                                 //コメントアウト
 //                                MainActivity.settingPhase = "setting_menu";
@@ -355,12 +353,23 @@ public class CustomView extends View {
 
     }
 
+    private void setDialog(String dialogPattern){
+        MainActivity.onDialog = true;
+        MainActivity.dialogPattern = dialogPattern;
+    }
+
+    public static void setSameVariable(){
+        scene = MainActivity.scene;
+        day = MainActivity.day;
+        selectedPlayerId = MainActivity.selectedPlayerId;
+        isFirstNight = MainActivity.isFirstNight;
+        settingPhase = MainActivity.settingPhase;
+        gamePhase = MainActivity.gamePhase;
+
+    }
 
 
-
-
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,int reqWidth, int reqHeight) {
 
 // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -376,8 +385,7 @@ public class CustomView extends View {
     }
 
 
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
 // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;

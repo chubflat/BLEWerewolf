@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
     public static SimpleAdapter simpleAdapter;
     public static Adapter adapter;
     public static CustomView customView = null;
+    public static String dialogPattern;
 
     // 各種List宣言
     public static List<Map<String,Object>> playerArray;//参加者Array
@@ -155,10 +156,27 @@ public class MainActivity extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
+        String dialogText = "dialogText";
+
+
         if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("今からアプリを起動してもいいですか？")
-                    .setPositiveButton("起動", new DialogInterface.OnClickListener() {
+
+            switch (dialogPattern){
+                case "Seer":
+                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
+                    break;
+                case "Werewolf":
+                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
+                    break;
+                case "Bodyguard":
+                    dialogText = String.format("%さんを護衛しますか？","bbbb");
+                    break;
+                default:
+                    break;
+            }
+            builder.setMessage(dialogText)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 // ボタンをクリックしたときの動作
                             onDialog = false;
@@ -166,6 +184,12 @@ public class MainActivity extends Activity {
                             customView.invalidate();
 
                         }
+                    });
+            builder.setMessage("dialog text")
+                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+// ボタンをクリックしたときの動作
+                                                    }
                     });
             builder.show();
         }
@@ -242,23 +266,6 @@ public class MainActivity extends Activity {
     public static void refresh(){
 
     }
-    public void setDialog(){
-        new AlertDialog.Builder(MainActivity.this)
-                .setTitle("title")
-                .setMessage("message")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // OK button pressed
-                        MainActivity.settingPhase = "client_menu";
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
-
-
-
 
 
 // bluetooth用
