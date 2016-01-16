@@ -36,6 +36,10 @@ public class MainActivity extends Activity {
 
     }
 
+
+
+
+
     public static ListView listView;
     public static SimpleAdapter simpleAdapter;
     public static Adapter adapter;
