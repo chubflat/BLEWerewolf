@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     public static SimpleAdapter simpleAdapter;
     public static Adapter adapter;
     public static CustomView customView = null;
-    public static String dialogPattern;
+    public static String dialogPattern = "default";
 
     // 各種List宣言
     public static List<Map<String,Object>> playerArray;//参加者Array
@@ -158,7 +158,6 @@ public class MainActivity extends Activity {
 
         String dialogText = "dialogText";
 
-
         if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -185,7 +184,7 @@ public class MainActivity extends Activity {
 
                         }
                     });
-            builder.setMessage("dialog text")
+            builder.setMessage(dialogText)
                     .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 // ボタンをクリックしたときの動作
