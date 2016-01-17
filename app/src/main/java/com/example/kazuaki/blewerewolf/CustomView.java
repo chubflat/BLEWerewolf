@@ -331,8 +331,11 @@ public class CustomView extends View {
                             }
                             break;
                         case "rule_confirm":
-                            SettingScene.isSettingScene = false;
-                            SettingScene.isGameScene = true;
+                            if(confirmButtonRect.contains((int)pointX,(int)pointY)){
+                                SettingScene.isSettingScene = true;
+                                SettingScene.isGameScene = true;
+                            }
+
                             break;
                         default:
                             break;
@@ -349,7 +352,10 @@ public class CustomView extends View {
             default:
                 return true;
         }
-        invalidate();
+        if(!settingPhase.equals("rule_confirm")){
+            invalidate();
+        }
+
         return false;
 
     }
