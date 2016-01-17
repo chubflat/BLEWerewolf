@@ -179,17 +179,12 @@ public class CustomView extends View {
         }else if(!isSettingScene && isGameScene){
             // background
             backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
-            canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-
+            canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
 
             switch (gamePhase){
-
-
                 case "night_roleRotate":
-
                     // rotateImg 表示
                     Rect rotateCardRect = new Rect(width * 15 /100,height * 30 / 100 ,width * 85 / 100 ,height * 70 /100);
-
                     //TODO cardRotate
                     //TODO roleImgを取ってくる:デフォルトで村人
 

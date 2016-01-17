@@ -31,6 +31,7 @@ import java.util.Map;
 public class GameScene extends Activity {
 
     public static ListView listView;
+    public static View chat;
     public static SimpleAdapter simpleAdapter;
     //    public static Adapter adapter;
     public static CustomView customView = null;
@@ -75,23 +76,6 @@ public class GameScene extends Activity {
         initBackground();
         super.onCreate(savedInstanceState);
 
-        //dialog
-//        if(onDialog){
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("今からアプリを起動してもいいですか？")
-//                    .setPositiveButton("起動", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//// ボタンをクリックしたときの動作
-//                        }
-//                    });
-//            builder.show();
-//        }
-
-
-        initBackground();
-//        initControls();
-//        turnOn();
-
         // FrameLayout作成
         FrameLayout mFrameLayout = new FrameLayout(this);
         setContentView(mFrameLayout);
@@ -100,11 +84,13 @@ public class GameScene extends Activity {
         customView = new CustomView(this);
         mFrameLayout.addView(customView);
 
-        View view = getLayoutInflater().inflate(R.layout.activity_chat,null);
+        chat = getLayoutInflater().inflate(R.layout.activity_chat,null);
         FrameLayout.LayoutParams chatLp = new FrameLayout.LayoutParams(customView.width * 90 /100,customView.height * 80 / 100);
-        chatLp.gravity = Gravity.TOP;
+        chatLp.gravity = Gravity.TOP | Gravity.CENTER;
         chatLp.topMargin = 200;
-        addContentView(view,chatLp);
+        addContentView(chat, chatLp);
+
+        drawChat(false);
 
 //        mFrameLayout.addView(R.layout.activity_chat,100,100);
 
@@ -119,11 +105,7 @@ public class GameScene extends Activity {
         selectedPlayerId = -2;
 
         listPlayerIdArray = new ArrayList<>();
-        Log.d("array", "array=");
-
         listInfoDicArray = new ArrayList<Map<String,String>>();
-
-
         simpleAdapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
 
         listView.setAdapter(simpleAdapter);
@@ -165,19 +147,13 @@ public class GameScene extends Activity {
 //            }
 //
 //        });
+        drawListView(false);
         mFrameLayout.addView(listView);
 
         //TODO Chat追加
 
     }
     private void initControls() {
-//        messagesContainer = new ListView(this);
-//        messageET = new EditText(this);
-//        sendBtn = new Button(this);
-//
-//        TextView meLabel = new TextView(this);
-//        TextView companionLabel = new TextView(this);
-//        RelativeLayout container = new RelativeLayout(this);
 
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
@@ -187,7 +163,7 @@ public class GameScene extends Activity {
         TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
-        companionLabel.setText("My Buddy");// Hard Coded
+        companionLabel.setText("");// Hard Coded
         loadDummyHistory();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -250,59 +226,67 @@ public class GameScene extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        String dialogText = "dialogText";
-
-        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            switch (dialogPattern){
-                case "Seer":
-                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
-                    break;
-                case "Werewolf":
-                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
-                    break;
-                case "Bodyguard":
-                    dialogText = String.format("%さんを護衛しますか？","bbbb");
-                    break;
-                default:
-                    break;
-            }
-            builder.setMessage(dialogText)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-// ボタンをクリックしたときの動作
-                            onDialog = false;
-                            settingPhase = "client_menu";
-                            customView.invalidate();
-
-                        }
-                    });
-            builder.setMessage(dialogText)
-                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-// ボタンをクリックしたときの動作
-                        }
-                    });
-            builder.show();
-        }
+//        String dialogText = "dialogText";
+//
+//        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+//            switch (dialogPattern){
+//                case "Seer":
+//                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
+//                    break;
+//                case "Werewolf":
+//                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
+//                    break;
+//                case "Bodyguard":
+//                    dialogText = String.format("%さんを護衛しますか？","bbbb");
+//                    break;
+//                default:
+//                    break;
+//            }
+//            builder.setMessage(dialogText)
+//                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//// ボタンをクリックしたときの動作
+//                            onDialog = false;
+//                            settingPhase = "client_menu";
+//                            customView.invalidate();
+//
+//                        }
+//                    });
+//            builder.setMessage(dialogText)
+//                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//// ボタンをクリックしたときの動作
+//                        }
+//                    });
+//            builder.show();
+//        }
 
         return true;
     }
 
 
     public static void drawListView(boolean visible){
-        if(visible == true) {
+        if(visible) {
             listView.setVisibility(View.VISIBLE);
-        }else if(visible == false){
+        }else if(!visible){
             listView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public static void drawChat(boolean visible){
+        if(visible) {
+            chat.setVisibility(View.VISIBLE);
+        }else if(!visible){
+            chat.setVisibility(View.INVISIBLE);
         }
     }
 
     public static void initBackground(){
         isSettingScene = false;
         isGameScene = true;
-        gamePhase = "night_ruleRotate";
+        gamePhase = "night_roleRotate";
         day = 1;
         isFirstNight = true;
         victimArray = new ArrayList<Integer>();
@@ -310,6 +294,7 @@ public class GameScene extends Activity {
     }
     // settingPhaseについては直書きする
     public static void goNextPhase(){
+        drawChat(false);
         if(isGameScene){  // setting_scene以外に適用
             switch (gamePhase){
                 case "night_roleRotate":
@@ -317,7 +302,7 @@ public class GameScene extends Activity {
                     break;
                 case "night_roleCheck":
                     gamePhase = "night_chat";
-                    // TODO Chat表示をOnにする
+                    drawChat(true);
                     // TODO Timer起動する
                     break;
                 case "night_chat":
