@@ -56,9 +56,11 @@ public class CustomView extends View {
     public static int selectedPlayerId;
     public static int mediumId;
     public static boolean isFirstNight;
-    public static String scene;
+//    public static String scene;
     public static String settingPhase;
     public static String gamePhase;
+    public static Boolean isSettingScene;
+    public static Boolean isGameScene;
 
     //TODO Canvasに新要素追加時
 
@@ -115,16 +117,14 @@ public class CustomView extends View {
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
         // default List非表示
-        MainActivity.drawListView(false);
+        GameScene.drawListView(false);
 
-
-        switch (scene){
-            case "setting_scene":
-                switch (settingPhase){
-                    case "setting_menu":
-                        //Background
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+        if(isSettingScene){
+            switch (settingPhase){
+                case "setting_menu":
+                    //Background
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
 
 //                        // Client Button
@@ -134,178 +134,174 @@ public class CustomView extends View {
 //                        canvas.drawBitmap(buttonImg,null,userSettingButtonRect,paint);
 //                        canvas.drawText("ユーザー設定",width * 25/100,height * 70/100,paint);
 
-                        break;
-                    case "user_setting":
-                        // TODO User設定画面描画
+                    break;
+                case "user_setting":
+                    // TODO User設定画面描画
                         /*
                         * username
                         * userId
                         * back button*/
-                        break;
-                    case "client_menu":
-                        //TODO Client設定 部屋探索
+                    break;
+                case "client_menu":
+                    //TODO Client設定 部屋探索
                         /*
                         * bluetoothで部屋のIDを受信
                         * リストに表示
                         * リストの中身を選択したら待機画面に*/
 
-                        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
+                    confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
 //                    backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.night);
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-                        paint.setColor(Color.WHITE);
-                        canvas.drawText("ルール設定待ち",width * 30/100,height * 50 / 100,paint);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                    paint.setColor(Color.WHITE);
+                    canvas.drawText("ルール設定待ち",width * 30/100,height * 50 / 100,paint);
 
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ",width * 25/100,height * 85/100,paint);
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ",width * 25/100,height * 85/100,paint);
 
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case "game_scene":
-                // background
-                backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
-                canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                    break;
+                case "rule_confirm":
+                    // background
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                    //topText
+                    canvas.drawBitmap(timerFrameImg,null,topTextRect,paint);
+                    canvas.drawText("ルール",width * 30/100,height * 10/100,paint);
 
+                    // TODO List表示
+                    // 2行リスト GameSceneに記述
 
-                switch (gamePhase){
-                    case "rule_confirm":
-                        // background
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-                        //topText
-                        canvas.drawBitmap(timerFrameImg,null,topTextRect,paint);
-                        canvas.drawText("ルール",width * 30/100,height * 10/100,paint);
-
-                        // TODO List表示
-                        // 2行リスト MainActivityに記述
-
-                        //confirmButton
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("確認",width * 25/100,height * 85/100,paint);
-                        break;
-
-                    case "night_roleRotate":
-
-                        // rotateImg 表示
-                        Rect rotateCardRect = new Rect(width * 15 /100,height * 30 / 100 ,width * 85 / 100 ,height * 70 /100);
-
-                        //TODO cardRotate
-                        //TODO roleImgを取ってくる:デフォルトで村人
-
-                        canvas.drawBitmap(roleImg,null,rotateCardRect,paint);
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("詳細確認", width * 25 / 100, height * 85 / 100, paint);
-
-                        break;
-                    case "night_roleCheck":
-
-                        //Rect宣言
-                        Rect topFrameRect = new Rect(width * 5 /100,height * 5 / 100 ,width * 95 / 100 ,height * 50 /100);
-                        Rect belowFrameRect = new Rect(width * 20 /100,height * 60 / 100 ,width * 80 / 100 ,height * 75 /100);
-                        Rect roleCheckCardRect = new Rect(width * 42 /100,height * 10 / 100 ,width * 58 / 100 ,height * 22 /100);
-
-                        // canvasDraw
-                        canvas.drawBitmap(frameImg,null,topFrameRect,paint);
-                        canvas.drawBitmap(frameImg,null,belowFrameRect,paint);
-                        canvas.drawBitmap(roleImg, null, roleCheckCardRect, paint);
-                        // confirm button
-                        canvas.drawBitmap(buttonImg,null,confirmButtonRect,paint);
-                        canvas.drawText("初日夜へ", width * 25 / 100, height * 85 / 100, paint);
+                    //confirmButton
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("確認",width * 25/100,height * 85/100,paint);
+                    break;
+                default:
+                    break;
+            }
+        }else if(!isSettingScene && isGameScene){
+            // background
+            backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
+            canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
 
-                        break;
-
-                    case "night_chat":
-                        canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                        canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
-                        canvas.drawBitmap(buttonImg,null,actionButtonRect,paint);
-
-                        String action = "占う";
-                        // TODO 役職ごとに文字を変えるswitch文
-                        canvas.drawText(action, width * 75 / 100, height * 10 / 100, paint);
-
-                        // TODO Chat実装
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
-
-                        break;
-
-                    case "morning":
-                        // background
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.morning,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-
-                        canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                        canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
-                        Rect morningFrameRect = new Rect(width * 15 / 100,height * 40 / 100,width * 85 / 100 ,height * 60 / 100);
-                        canvas.drawBitmap(frameImg,null,morningFrameRect,paint);
-
-                        //TODO Text表示
-
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+            switch (gamePhase){
 
 
-                        break;
-                    case "afternoon_meeting":
-                        // background
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(), R.drawable.afternoon, width, height);
-                        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                case "night_roleRotate":
 
-                        roleImg = decodeSampledBitmapFromResource(getResources(),R.drawable.back_card,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                        canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+                    // rotateImg 表示
+                    Rect rotateCardRect = new Rect(width * 15 /100,height * 30 / 100 ,width * 85 / 100 ,height * 70 /100);
 
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+                    //TODO cardRotate
+                    //TODO roleImgを取ってくる:デフォルトで村人
 
-                        break;
-                    case "evening_voting":
-                        // background
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                    canvas.drawBitmap(roleImg,null,rotateCardRect,paint);
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("詳細確認", width * 25 / 100, height * 85 / 100, paint);
 
-                        // TODO List表示
+                    break;
+                case "night_roleCheck":
 
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+                    //Rect宣言
+                    Rect topFrameRect = new Rect(width * 5 /100,height * 5 / 100 ,width * 95 / 100 ,height * 50 /100);
+                    Rect belowFrameRect = new Rect(width * 20 /100,height * 60 / 100 ,width * 80 / 100 ,height * 75 /100);
+                    Rect roleCheckCardRect = new Rect(width * 42 /100,height * 10 / 100 ,width * 58 / 100 ,height * 22 /100);
 
-                        break;
-                    case "excution":
-                        // background
-                        backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
-                        canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                        canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+                    // canvasDraw
+                    canvas.drawBitmap(frameImg,null,topFrameRect,paint);
+                    canvas.drawBitmap(frameImg,null,belowFrameRect,paint);
+                    canvas.drawBitmap(roleImg, null, roleCheckCardRect, paint);
+                    // confirm button
+                    canvas.drawBitmap(buttonImg,null,confirmButtonRect,paint);
+                    canvas.drawText("初日夜へ", width * 25 / 100, height * 85 / 100, paint);
 
-                        Rect excutionFrameRect = new Rect(width * 15 / 100,height * 20 / 100,width * 85 / 100 ,height * 80 / 100);
-                        canvas.drawBitmap(frameImg,null,excutionFrameRect,paint);
 
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+                    break;
 
-                        break;
-                    case "gameover":
-                        // confirm button
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+                case "night_chat":
+                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
+                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+                    canvas.drawBitmap(buttonImg,null,actionButtonRect,paint);
 
-                        break;
-                    default:
-                        break;
-                }
+                    String action = "占う";
+                    // TODO 役職ごとに文字を変えるswitch文
+                    canvas.drawText(action, width * 75 / 100, height * 10 / 100, paint);
 
-                break;
-            default:
-                break;
+                    // TODO Chat実装
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    break;
+
+                case "morning":
+                    // background
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.morning,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+
+                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
+                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+                    Rect morningFrameRect = new Rect(width * 15 / 100,height * 40 / 100,width * 85 / 100 ,height * 60 / 100);
+                    canvas.drawBitmap(frameImg,null,morningFrameRect,paint);
+
+                    //TODO Text表示
+
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+
+                    break;
+                case "afternoon_meeting":
+                    // background
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(), R.drawable.afternoon, width, height);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+
+                    roleImg = decodeSampledBitmapFromResource(getResources(),R.drawable.back_card,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
+                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    break;
+                case "evening_voting":
+                    // background
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+
+                    // TODO List表示
+
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    break;
+                case "excution":
+                    // background
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
+                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
+
+                    Rect excutionFrameRect = new Rect(width * 15 / 100,height * 20 / 100,width * 85 / 100 ,height * 80 / 100);
+                    canvas.drawBitmap(frameImg,null,excutionFrameRect,paint);
+
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    break;
+                case "gameover":
+                    // confirm button
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
@@ -319,29 +315,34 @@ public class CustomView extends View {
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                if(scene.equals("setting_scene")){
+                if(isSettingScene){
                     switch (settingPhase){
                         case "setting_menu":
                             if(clientButtonRect.contains((int)pointX,(int)pointY)){
                                 setDialog("Seer");
-//                                MainActivity.settingPhase = "client_menu";
+//                                GameScene.settingPhase = "client_menu";
                         }
                             break;
                         case "client_menu":
                             if(confirmButtonRect.contains((int)pointX,(int)pointY)){
                                 setDialog("Werewolf");
-                                MainActivity.scene = "game_scene";
+                                SettingScene.settingPhase = "rule_confirm";
+//                                GameScene.scene = "game_scene";
                                 //コメントアウト
-//                                MainActivity.settingPhase = "setting_menu";
+//                                GameScene.settingPhase = "setting_menu";
                             }
+                            break;
+                        case "rule_confirm":
+                            SettingScene.isSettingScene = false;
+                            SettingScene.isGameScene = true;
                             break;
                         default:
                             break;
                     }
 
-                }else if(scene.equals("game_scene")){
+                }else if(!isSettingScene && isGameScene){
                     if(confirmButtonRect.contains((int)pointX,(int)pointY)){
-                        MainActivity.goNextPhase();
+                        GameScene.goNextPhase();
                     }
 
                 }
@@ -356,19 +357,21 @@ public class CustomView extends View {
     }
 
     private void setDialog(String dialogPattern){
-        MainActivity.onDialog = true;
-        MainActivity.dialogPattern = dialogPattern;
+        GameScene.onDialog = true;
+        GameScene.dialogPattern = dialogPattern;
     }
 
     public static void setSameVariable(){
-        scene = MainActivity.scene;
-        day = MainActivity.day;
-        selectedPlayerId = MainActivity.selectedPlayerId;
-        isFirstNight = MainActivity.isFirstNight;
-        settingPhase = MainActivity.settingPhase;
-        gamePhase = MainActivity.gamePhase;
+        isSettingScene = SettingScene.isSettingScene;
+        isGameScene = SettingScene.isGameScene;
+        day = GameScene.day;
+        selectedPlayerId = GameScene.selectedPlayerId;
+        isFirstNight = GameScene.isFirstNight;
+        settingPhase = SettingScene.settingPhase;
+        gamePhase = GameScene.gamePhase;
 
     }
+
 
 
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,int reqWidth, int reqHeight) {
