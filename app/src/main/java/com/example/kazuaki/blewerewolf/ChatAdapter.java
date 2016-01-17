@@ -126,7 +126,7 @@ public class ChatAdapter extends BaseAdapter {
 
     private ViewHolder createViewHolder(View v) {
         ViewHolder holder = new ViewHolder();
-        holder.content = MainActivity.content;
+        holder.content = GameScene.content;
         holder.txtMessage =(TextView) v.findViewById(R.id.txtMessage);
         holder.content = (LinearLayout) v.findViewById(R.id.content);
         holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBackground);
