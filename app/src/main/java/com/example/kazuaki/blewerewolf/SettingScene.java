@@ -73,6 +73,7 @@ public class SettingScene extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         isSettingScene = true;
+        isGameScene = false;
         settingPhase = "setting_menu";
         super.onCreate(savedInstanceState);
 //        initBackground();
@@ -84,115 +85,114 @@ public class SettingScene extends Activity {
         customView = new CustomView(this);
         mFrameLayout.addView(customView);
 
-
         //TODO List追加
         // 夜アクション用リストのタッチ動作
-        listView = new ListView(this);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
-        lp.gravity = Gravity.BOTTOM;
-        lp.bottomMargin = 0;
-        selectedPlayerId = -2;
-
-        listPlayerIdArray = new ArrayList<>();
-        Log.d("array", "array=");
-
-        listInfoDicArray = new ArrayList<Map<String,String>>();
-
-
-        simpleAdapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
-
-        listView.setAdapter(simpleAdapter);
-        listView.setLayoutParams(lp);
-        listView.setBackgroundColor(Color.WHITE);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if(phase.equals("player_setting")){
-//                    selectedPlayerId = -2;
-//                }else{
-//                    selectedPlayerId = listPlayerIdArray.get(position);
-//                }
+//        listView = new ListView(this);
+//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
+//        lp.gravity = Gravity.BOTTOM;
+//        lp.bottomMargin = 0;
+//        selectedPlayerId = -2;
 //
-//                if(phase.equals("player_setting")){
+//        listPlayerIdArray = new ArrayList<>();
+//        Log.d("array", "array=");
 //
-//                }else{
-//                    if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf) {
-//                        if (isFirstNight) {//人狼：初日の夜はタッチできない
-//                            if(selectedPlayerId == -1){
-//                                goNextPhase();
-//                                customView.invalidate();
-//                            }
+//        listInfoDicArray = new ArrayList<Map<String,String>>();
 //
-//                        } else {// 人狼：2日目以降タッチされたplayerIdを渡して再描画
-//                            wolfkill(selectedPlayerId, 0);
-//                            goNextPhase();
-//                            customView.invalidate();
-//                        }
-//                    } else if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Bodyguard) {
-//                        bodyguardId = selectedPlayerId;
-//                        goNextPhase();
-//                        customView.invalidate();
-//                    } else {
-//                        goNextPhase();
-//                        customView.invalidate();
-//                    }
-//                }
-//            }
 //
-//        });
-        mFrameLayout.addView(listView);
+//        simpleAdapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
+//
+//        listView.setAdapter(simpleAdapter);
+//        listView.setLayoutParams(lp);
+//        listView.setBackgroundColor(Color.WHITE);
+////        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////            @Override
+////            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                if(phase.equals("player_setting")){
+////                    selectedPlayerId = -2;
+////                }else{
+////                    selectedPlayerId = listPlayerIdArray.get(position);
+////                }
+////
+////                if(phase.equals("player_setting")){
+////
+////                }else{
+////                    if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf) {
+////                        if (isFirstNight) {//人狼：初日の夜はタッチできない
+////                            if(selectedPlayerId == -1){
+////                                goNextPhase();
+////                                customView.invalidate();
+////                            }
+////
+////                        } else {// 人狼：2日目以降タッチされたplayerIdを渡して再描画
+////                            wolfkill(selectedPlayerId, 0);
+////                            goNextPhase();
+////                            customView.invalidate();
+////                        }
+////                    } else if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Bodyguard) {
+////                        bodyguardId = selectedPlayerId;
+////                        goNextPhase();
+////                        customView.invalidate();
+////                    } else {
+////                        goNextPhase();
+////                        customView.invalidate();
+////                    }
+////                }
+////            }
+////
+////        });
+//        mFrameLayout.addView(listView);
 
         //TODO Chat追加
 
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        if(!isSettingScene && isGameScene){
-            Intent intent = new Intent(SettingScene.this,GameScene.class);
-            startActivity(intent);
-        }
-
-        return true;
-//        String dialogText = "dialogText";
-//
-//        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//
-//            switch (dialogPattern){
-//                case "Seer":
-//                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
-//                    break;
-//                case "Werewolf":
-//                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
-//                    break;
-//                case "Bodyguard":
-//                    dialogText = String.format("%さんを護衛しますか？","bbbb");
-//                    break;
-//                default:
-//                    break;
-//            }
-//            builder.setMessage(dialogText)
-//                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//// ボタンをクリックしたときの動作
-//                            onDialog = false;
-//                            settingPhase = "client_menu";
-//                            customView.invalidate();
-//
-//                        }
-//                    });
-//            builder.setMessage(dialogText)
-//                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//// ボタンをクリックしたときの動作
-//                        }
-//                    });
-//            builder.show();
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event){
+//        if(!isSettingScene && isGameScene){
+//            Intent intent = new Intent(SettingScene.this,GameScene.class);
+//            startActivity(intent);
 //        }
-
-    }
+//
+//        return true;
+////        String dialogText = "dialogText";
+////
+////        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
+////            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+////
+////            switch (dialogPattern){
+////                case "Seer":
+////                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
+////                    break;
+////                case "Werewolf":
+////                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
+////                    break;
+////                case "Bodyguard":
+////                    dialogText = String.format("%さんを護衛しますか？","bbbb");
+////                    break;
+////                default:
+////                    break;
+////            }
+////            builder.setMessage(dialogText)
+////                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+////                        public void onClick(DialogInterface dialog, int id) {
+////// ボタンをクリックしたときの動作
+////                            onDialog = false;
+////                            settingPhase = "client_menu";
+////                            customView.invalidate();
+////
+////                        }
+////                    });
+////            builder.setMessage(dialogText)
+////                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+////                        public void onClick(DialogInterface dialog, int id) {
+////// ボタンをクリックしたときの動作
+////                        }
+////                    });
+////            builder.show();
+////        }
+//
+//    }
 
     public static void drawListView(boolean visible){
         if(visible == true) {

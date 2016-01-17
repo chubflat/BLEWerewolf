@@ -117,7 +117,7 @@ public class CustomView extends View {
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
         // default List非表示
-        GameScene.drawListView(false);
+//        GameScene.drawListView(false);
 
         if(isSettingScene){
             switch (settingPhase){
@@ -125,14 +125,12 @@ public class CustomView extends View {
                     //Background
                     backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-
-
-//                        // Client Button
-//                        canvas.drawBitmap(buttonImg,null,clientButtonRect,paint);
-//                        canvas.drawText("クライアント", width * 25 / 100, height * 55 / 100, paint);
-//                        // UserSetting Button
-//                        canvas.drawBitmap(buttonImg,null,userSettingButtonRect,paint);
-//                        canvas.drawText("ユーザー設定",width * 25/100,height * 70/100,paint);
+                    // Client Button
+                    canvas.drawBitmap(buttonImg,null,clientButtonRect,paint);
+                    canvas.drawText("クライアント", width * 25 / 100, height * 55 / 100, paint);
+                    // UserSetting Button
+                    canvas.drawBitmap(buttonImg,null,userSettingButtonRect,paint);
+                    canvas.drawText("ユーザー設定",width * 25/100,height * 70/100,paint);
 
                     break;
                 case "user_setting":
@@ -320,7 +318,7 @@ public class CustomView extends View {
                         case "setting_menu":
                             if(clientButtonRect.contains((int)pointX,(int)pointY)){
                                 setDialog("Seer");
-//                                GameScene.settingPhase = "client_menu";
+                                SettingScene.settingPhase = "client_menu";
                         }
                             break;
                         case "client_menu":
