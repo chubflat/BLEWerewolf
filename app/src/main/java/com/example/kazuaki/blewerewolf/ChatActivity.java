@@ -34,13 +34,6 @@ public class ChatActivity extends Activity {
     }
 
     private void initControls() {
-//        messagesContainer = new ListView(this);
-//        messageET = new EditText(this);
-//        sendBtn = new Button(this);
-//
-//        TextView meLabel = new TextView(this);
-//        TextView companionLabel = new TextView(this);
-//        RelativeLayout container = new RelativeLayout(this);
 
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
@@ -50,7 +43,7 @@ public class ChatActivity extends Activity {
         TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
-        companionLabel.setText("My Buddy");// Hard Coded
+        companionLabel.setText("");// Hard Coded //TODO Ç†Ç∆Ç≈è¡Ç∑
         loadDummyHistory();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
