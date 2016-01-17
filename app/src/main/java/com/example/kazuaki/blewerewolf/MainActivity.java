@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 
     public static ListView listView;
     public static SimpleAdapter simpleAdapter;
-    public static Adapter adapter;
+//    public static Adapter adapter;
     public static CustomView customView = null;
     public static String dialogPattern = "default";
 
@@ -118,10 +118,10 @@ public class MainActivity extends Activity {
         mFrameLayout.addView(customView);
 
         View view = getLayoutInflater().inflate(R.layout.activity_chat,null);
-        LayoutParams lp = new LayoutParams(customView.width * 90 /100,customView.height * 80 / 100);
-        lp.gravity = Gravity.TOP;
-        lp.topMargin = 200;
-        addContentView(view,lp);
+        LayoutParams chatLp = new LayoutParams(customView.width * 90 /100,customView.height * 80 / 100);
+        chatLp.gravity = Gravity.TOP;
+        chatLp.topMargin = 200;
+        addContentView(view,chatLp);
 
 //        mFrameLayout.addView(R.layout.activity_chat,100,100);
 
