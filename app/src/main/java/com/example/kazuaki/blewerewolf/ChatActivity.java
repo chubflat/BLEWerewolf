@@ -43,7 +43,7 @@ public class ChatActivity extends Activity {
         TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
-        companionLabel.setText("");// Hard Coded //TODO Ç†Ç∆Ç≈è¡Ç∑
+        companionLabel.setText("");// Hard Coded //TODO „ÅÇ„Å®„ÅßÊ∂à„Åô
         loadDummyHistory();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
